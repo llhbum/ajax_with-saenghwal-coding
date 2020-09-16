@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+</head>
+<body>
+  <h1><a href="#!welcome">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="
+    nightDayHandler(this);
+  ">
+  <ol id="nav">
+
+  </ol>
+  <article>
+
+  </article>
+  <script>
+  // fetchPage 함수 name 값을 이용해서 article에 name의 text 보냄
+  function fetchPage(name){
+    fetch(name).then(function(response){
+      response.text().then(function(text){
+        document.querySelector('article').innerHTML = text;
+      })
+    });
+  }
+
+// location.hash를 이용해서 url의 id값을 가져옴
+  if(location.hash){
+    fetchPage(location.hash.substr(2));
+  } else {
+    fetchPage('welcome');
+  }
+
+  // list를 배열로 만들어 간소화 하고 while을 통해서 <>를 넣어줌
+  fetch('list').then(function(response){
+    response.text().then(function(text){
+      var items = text.split(',');
+      var i = 0;
+      var tags = '';
+      while(i<items.length){
+        var item = items[i];
+        item = item.trim(); //trim을 이용해서 사이드의 불필요한 공백 제거
+        var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">'+item+'</a></li>';
+        tags = tags + tag;
+        i = i + 1;
+      }
+      document.querySelector('#nav').innerHTML = tags;
+    })
+  });
+  </script>
+</body>
+</html>
