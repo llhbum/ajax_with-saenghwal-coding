@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <body>
+    <article>
+
+    </article>
+    <input type="button" value="fetch" onclick="
+      /* 주석
+      fetch('html').then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      })
+      */
+
+      //Asynchronous = 동기화
+      fetch('html').then(function(response){ //fetch('html')을 불러와라 .then 불러온 후 (function(response)){}을 실행해라
+        if(response.status == '404'){ //response.status가 404이면 Not found를 alert해라
+          alert('Not found')
+        }
+      });
+      console.log(1);
+      console.log(2);
+    ">
+  </body>
+</html>
